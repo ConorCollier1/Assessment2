@@ -20,12 +20,19 @@ namespace Assessment2
             string[] values = {"Ace","2","3","4","5","6",
                 "7","8","9","10","Jack","Queen","King"};
             string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
+            int count = 0;
 
             deck = new PlayingCard[deckSize];
-            for (int i = 0; i < deck.Length; i++)//loop adding each card to deck one by one
+            
+            for (int s = 0; s < suits.Length; s++)//loop through each suit
             {
-                deck[i] = new PlayingCard(values[i % 11], suits[i / 13]);
+                for (int v=0; v<values.Length;v++)    //loop through each card in each suit
+                {
+                    deck[count] = new PlayingCard(values[v], suits[s]);
+                    count++;
+                }
             }
+            
             for(int x = 0; x < values.Length; x++)
             {
                 if (values[x] =="Jack"|| values[x] == "Queen"|| values[x] == "King" )//if its a face card set points to 10
@@ -55,7 +62,7 @@ namespace Assessment2
             }
         }
 
-        public PlayingCard DealCard()
+        public PlayingCard DealCard(Player player)
         {
             if (card < deck.Length)     //check its in bounds of array
             {
