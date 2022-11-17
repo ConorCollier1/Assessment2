@@ -27,8 +27,10 @@ namespace Assessment2
                 //player turn
                 Console.WriteLine("*** Player's Turn ***");
                 // Draw the first two cards for the Player
-                Console.WriteLine($"Card Dealt is {deck1.DealCard(player1)}");
-                Console.WriteLine($"Card Dealt is {deck1.DealCard(player1)}");
+                PlayingCard card1 = deck1.DealCard(ref player1);
+                PlayingCard card2 = deck1.DealCard(ref player1);
+                Console.WriteLine($"Card Dealt is {card1}");              
+                Console.WriteLine($"Card Dealt is {card2}");
                 OutputPoints(player1);
             } while(playAgain=="Y");
         }

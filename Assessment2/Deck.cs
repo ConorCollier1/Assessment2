@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Assessment2
         private int card;
         private const int deckSize = 52;
         private Random randomNumber=new Random();
-        public int Points;
+        public int drawCounter;
 
         public Deck()
         {
@@ -32,22 +33,6 @@ namespace Assessment2
                     count++;
                 }
             }
-            
-            for(int x = 0; x < values.Length; x++)
-            {
-                if (values[x] =="Jack"|| values[x] == "Queen"|| values[x] == "King" )//if its a face card set points to 10
-                {
-                    Points = 10;
-                }
-                else if (values[x] == "Ace") // If it's an ace set points to 11
-                {
-                    Points = 11;
-                }
-                else
-                {
-                    Points = Convert.ToInt32(values[x]);
-                }
-            }
         }
 
         public void ShuffleDeck()
@@ -62,11 +47,16 @@ namespace Assessment2
             }
         }
 
-        public PlayingCard DealCard(Player player)
-        {
+        public PlayingCard DealCard(ref Player player)
+        {         
+            PlayingCard topCard=deck[drawCounter];        //draws top card from deck  
             if (card < deck.Length)     //check its in bounds of array
             {
-                return deck[card++];
+                player.hand[player.numCardsInHand] = topCard;
+                player.numCardsInHand++;
+                player.points += topCard.Points;
+                drawCounter++;       //draws top card from deck
+                return topCard;
             }
             else
             {
