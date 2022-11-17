@@ -12,18 +12,34 @@ namespace Assessment2
         private int card;
         private const int deckSize = 52;
         private Random randomNumber=new Random();
+        public int Points;
 
         public Deck()
         {
             //create card arrays
-            string[] values = {"Ace","Two","Three","Four","Five","Six",
-                "Seven","Eight","Nine","Ten","Jack","Queen","King"};
+            string[] values = {"Ace","2","3","4","5","6",
+                "7","8","9","10","Jack","Queen","King"};
             string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
 
             deck = new PlayingCard[deckSize];
             for (int i = 0; i < deck.Length; i++)//loop adding each card to deck one by one
             {
                 deck[i] = new PlayingCard(values[i % 11], suits[i / 13]);
+            }
+            for(int x = 0; x < values.Length; x++)
+            {
+                if (values[x] =="Jack"|| values[x] == "Queen"|| values[x] == "King" )//if its a face card set points to 10
+                {
+                    Points = 10;
+                }
+                else if (values[x] == "Ace") // If it's an ace set points to 11
+                {
+                    Points = 11;
+                }
+                else
+                {
+                    Points = Convert.ToInt32(values[x]);
+                }
             }
         }
 
