@@ -33,7 +33,7 @@ namespace Assessment2
 
                 //player turn
                 Console.WriteLine("Player Plays");
-                // Draw the first two cards for the Player
+                // Player gets 2 cards to start
                 Console.WriteLine($"Card Dealt is the {deck1.DealCard(ref player1)}");
                 Console.WriteLine($"Card Dealt is the {deck1.DealCard(ref player1)}");
                 CheckForAce(player1);
@@ -44,7 +44,7 @@ namespace Assessment2
 
                 do
                 {
-                    Console.Write("\nDo you want to stick or twist - (s/t)?");
+                    Console.Write("Do you want to stick or twist - (s/t)?");
                     stick_twist = Console.ReadLine().ToLower();
 
                     if (stick_twist == "t")//if user selects twist -- give them another card
@@ -58,6 +58,11 @@ namespace Assessment2
                         CheckForAce(player1);
                         OutputPoints(player1);
                         underTwentyOne = CheckPoints(player1);
+                        
+                        if(underTwentyOne==false)
+                        {
+                            Console.WriteLine($"****** {player1.name} Bust ******"); ///if player gois bust print message
+                        }
                     }
                 } while (underTwentyOne == true && stick_twist != "s");
 
@@ -73,21 +78,19 @@ namespace Assessment2
                     OutputPoints(dealer);
                     CheckPoints(dealer);
 
-                    //If he has less than 17 he takes another card and repeats until he has more than 17 or is bust
+                    //If he has less than 17 he takes another card and repeats until he has 17 or more or is bust
                     do
-                    {
-                        if (dealer.points < 17)
+                    {                        
+                        Console.WriteLine($"New Card Dealt is the {deck1.DealCard(ref dealer)}");
+                        CheckForAce(dealer);
+                        OutputPoints(dealer);
+                        dealerUnder=CheckPoints(dealer);
+                        
+                        if(dealerUnder == false)
                         {
-                            Console.WriteLine($"\nNew Card Dealt is the {deck1.DealCard(ref dealer)}");
-                            CheckForAce(dealer);
-                            OutputPoints(dealer);
-                            dealerUnder=CheckPoints(dealer);
+                            Console.WriteLine($"****** {dealer.name} Bust ******"); //if dealer bust print message
                         }
-                        else
-                        {
-                            dealerUnder = false;
-                        }
-                    }while (dealerUnder == true);
+                    }while (dealerUnder == true&&dealer.points<17);
 
                 }
                 OutputWinner(player1, dealer);
@@ -105,11 +108,12 @@ namespace Assessment2
         {
             if (player.points > 21)
             {
-                Console.WriteLine($"\n****** {player.name} Bust ******");             //if over 21 -- bust
-                return false;
+                return false; //if over 21 -- bust
             }
-
-            return true; //if player is under 21 they are still in the game
+            else
+            {
+                return true; //if player is under 21 they are still in the game
+            }
         }
 
         //method to display the current points of the player
@@ -174,7 +178,7 @@ namespace Assessment2
         //method to print results of all games played once user is finished playing
         static public void OutputStats()
         {
-            Console.WriteLine("\nGames Results");
+            Console.WriteLine("\n******Games Results******");
             Console.WriteLine($"Games Played : {gamesPlayed}");
             Console.WriteLine($"Player Wins : {wins}");
             Console.WriteLine($"Draws : {draws}");

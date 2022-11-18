@@ -5,8 +5,6 @@
         static void Main(string[] args)
         {
             Game.PlayGame();
-            
-            Console.ReadLine();
         }
     }
 }
