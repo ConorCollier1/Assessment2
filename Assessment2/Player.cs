@@ -9,15 +9,13 @@ namespace Assessment2
     internal class Player
     {
         public PlayingCard[] hand;  //create player hand
-        public int points;
-        public int numCardsInHand;
-        public string name;
+        public int Points { get; set; }
+        public int NumCardsInHand { get; set; }
+        public string Name { get; set; }
 
         public Player()
         {
             hand = new PlayingCard[10];  //i set so player can have at most 10 cards per game which will never be reached
-            numCardsInHand = 0;
-            points = 0;
         }
     }
 }

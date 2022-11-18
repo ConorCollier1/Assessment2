@@ -51,9 +51,9 @@ namespace Assessment2
         {         
             PlayingCard topCard=deck[drawCounter];        //draws top card from deck  
             
-            player.hand[player.numCardsInHand] = topCard;
-            player.numCardsInHand++;
-            player.points += topCard.Points;
+            player.hand[player.NumCardsInHand] = topCard;
+            player.NumCardsInHand++;
+            player.Points += topCard.Points;
             drawCounter++;       //draws top card from deck
             return topCard;           
         }
